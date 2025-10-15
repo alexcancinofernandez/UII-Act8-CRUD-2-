@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Comentario de YouTube</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        form { margin-top: 20px; max-width: 500px; padding: 20px; border: 1px solid #ccc; background-color: #f9f9f9; }
+        label { display: block; margin: 10px 0 5px; font-weight: bold; }
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        textarea {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        button {
+            background-color: #007bff; /* Azul para Actualizar */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        button:hover { background-color: #0056b3; }
+        .back-link {
+            display: inline-block;
+            background-color: #6c757d; /* Gris para Volver */
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-link:hover { background-color: #5a6268; }
+        .form-error { color: red; font-size: 0.9em; margin-top: -8px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Editar Comentario</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="form-error">{{ field.errors }}</div>
+            {% endif %}
+        {% endfor %}
+        <button type="submit">Actualizar Comentario</button>
+        <a href="{% url 'lista_comentarios' %}" class="back-link">Volver al listado</a>
+    </form>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Comentarios de YouTube</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; } /* Color de título más neutro */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; } /* Ancho 100% para mejor visualización */
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        
+        /* Estilos para botones de acción y el botón "Agregar" */
+        .actions a {
+            text-decoration: none;
+            padding: 5px 10px;
+            margin-right: 5px;
+            border-radius: 3px; /* Bordes ligeramente redondeados */
+            color: white; /* Texto blanco para todos los botones */
+            display: inline-block; /* Para que el padding y margen funcionen bien */
+        }
+        .actions .edit { background-color: #007bff; } /* Azul para Editar */
+        .actions .edit:hover { background-color: #0056b3; }
+        .actions .delete { background-color: #dc3545; } /* Rojo para Eliminar */
+        .actions .delete:hover { background-color: #c82333; }
+        
+        .add-button {
+            background-color: #28a745; /* Verde para Agregar */
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .add-button:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+    <h1>Lista de Comentarios de YouTube</h1>
+    <a href="{% url 'agregar_comentario' %}" class="add-button">Agregar Nuevo Comentario</a>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID Comentario</th>
+                <th>ID Video</th>
+                <th>Usuario</th>
+                <th>Comentario</th>
+                <th>Fecha</th>
+                <th>Likes</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comentario in comentarios %}
+            <tr>
+                <td>{{ comentario.id_comentario }}</td>
+                <td>{{ comentario.id_video }}</td>
+                <td>{{ comentario.nombre_usuario }}</td>
+                <td>{{ comentario.texto_del_comentario|truncatechars:50 }}</td>
+                <td>{{ comentario.fecha|date:"Y-m-d" }}</td>
+                <td>{{ comentario.likes_comentario }}</td>
+                <td class="actions">
+                    <a href="{% url 'editar_comentario' comentario.id_comentario %}" class="edit">Editar</a>
+                    <a href="{% url 'eliminar_comentario' comentario.id_comentario %}" class="delete">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No hay comentarios registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

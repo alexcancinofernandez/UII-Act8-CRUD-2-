@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar Eliminación</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 500px; margin: auto; padding: 20px; border: 1px solid #ccc; background-color: #f9f9f9; text-align: center; margin-top: 50px; }
+        h1 { color: #dc3545; margin-bottom: 20px; }
+        p { margin-bottom: 30px; font-size: 1.1em; }
+        .comentario-info { font-weight: bold; color: #333; }
+        .actions button {
+            background-color: #dc3545; /* Rojo para Eliminar */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+        .actions button:hover { background-color: #c82333; }
+        .actions .cancel-link {
+            background-color: #6c757d; /* Gris para Cancelar */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .actions .cancel-link:hover { background-color: #5a6268; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Confirmar Eliminación</h1>
+        <p>¿Estás seguro de que quieres eliminar el comentario de <span class="comentario-info">{{ comentario.nombre_usuario }}</span> con ID <span class="comentario-info">{{ comentario.id_comentario }}</span>?</p>
+        <form method="post" class="actions">
+            {% csrf_token %}
+            <button type="submit">Eliminar</button>
+            <a href="{% url 'lista_comentarios' %}" class="cancel-link">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>
